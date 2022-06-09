@@ -96,7 +96,7 @@ export const SearchModal: FC<Props> = ({ setOpen, open }) => {
           <PointedIcon name="close" size="big" onClick={() => setOpen(false)} />
         </RowContainer>
         <SongsContainer>
-          {isArtist ? <ArtistList artists={artists || []} setOpen={setOpen} /> : <SongsList
+          {isArtist ? <ArtistList artists={artists || []} setOpen={setOpen} customEmptyMessage="Please enter your query..." /> : <SongsList
             artist
             duration={false}
             tracks={tracks || []}

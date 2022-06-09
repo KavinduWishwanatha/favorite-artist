@@ -41,18 +41,20 @@ const CustomTableRow = styled(Table.Row)`
 interface IArtistList {
   artists: SearchArtist[];
   setOpen: (visible: boolean) => void;
+  customEmptyMessage: string;
 }
 
 export const ArtistList: FC<IArtistList> = ({
   artists,
-  setOpen
+  setOpen,
+  customEmptyMessage
 }) => {
   const dispatch = useDispatch();
 
   if (artists && !artists.length) {
     return (
       <EmptyContainer>
-        No records found...
+        {customEmptyMessage ? customEmptyMessage : 'No records found...'}
       </EmptyContainer>
     );
   }
