@@ -8,12 +8,12 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ThemeProvider } from '@emotion/react';
 import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
-import { wrapper, store, persistor } from '../redux';
-import { theme, globalStyles } from '../theme';
 import '@fontsource/inter';
 import '@fontsource/manrope';
 import 'nprogress/nprogress.css';
 import 'react-toastify/dist/ReactToastify.css';
+import { wrapper, store, persistor } from '../redux';
+import { theme, globalStyles } from '../theme';
 import { BASE_URL } from '../config';
 
 axios.defaults.baseURL = BASE_URL;

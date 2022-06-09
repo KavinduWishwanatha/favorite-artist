@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react';
-
-import { addFavourite } from '../redux/actions';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { favouriteCreateAction } from '../redux/actions';
 import type { RootState } from '../redux/reducer';
 import type { ITrack } from '../@types';
 import { DEFAULT_ALBUM_IMAGE } from '../constant';
@@ -19,7 +16,14 @@ export const useFavorites = ({ tracks, albumImage }: Props) => {
   const dispatch = useDispatch();
 
   const addTrackAsFavourite = (data: ITrack) => {
-    dispatch(addFavourite({ image: albumImage || DEFAULT_ALBUM_IMAGE, name: data.name, duration: data.duration }));
+    const newFavourite = { image: albumImage || DEFAULT_ALBUM_IMAGE, name: data.name, duration: data.duration, artist: data.artist };
+    const exist = favouriteList.find((e: ITrack) => e.name === newFavourite.name);
+
+    if (exist) {
+      dispatch(favouriteCreateAction(favouriteList.filter((e: ITrack) => e.name !== newFavourite.name)));
+    } else {
+      dispatch(favouriteCreateAction([...favouriteList, newFavourite]));
+    }
   };
 
   useEffect(() => {

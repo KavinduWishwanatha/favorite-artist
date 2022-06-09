@@ -1,4 +1,4 @@
-import { getNumberUnit, secondsToTime, alphabeticalSort } from './util';
+import { getNumberUnit, secondsToTime, alphabeticalSort, limitString } from './util';
 
 describe('secondsToTime', () => {
   it.each([
@@ -22,7 +22,7 @@ describe('getNumberUnit', () => {
   );
 });
 
-describe('getNumberUnit', () => {
+describe('alphabeticalSort', () => {
   it.each([
     [
       [
@@ -75,4 +75,13 @@ describe('getNumberUnit', () => {
   ])('when unsorted array is %s, return as %s', (value: any[], result: any[]) =>
     expect(value.sort(alphabeticalSort)).toEqual(result)
   );
+});
+
+describe('getNumberUnit', () => {
+  it('should receive limited string with ...', () => {
+    expect(limitString('Non avia interrete gaudere consectetur erit quid cum et nulla avia gaudere cur.', 10)).toEqual('Non avia i...');
+  });
+  it('should receive same string if length is high', () => {
+    expect(limitString('Non avia inasdsas', 20)).toEqual('Non avia inasdsas');
+  });
 });

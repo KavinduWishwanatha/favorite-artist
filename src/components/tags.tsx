@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import styled from '@emotion/styled';
 import { Label } from 'semantic-ui-react';
-import { IArtist, IArtistTag } from '../@types';
+import { IArtistTag } from '../@types';
 
 const TagContainer = styled.div`
   margin-bottom: 2rem;
@@ -11,13 +11,13 @@ const TagContainer = styled.div`
 `;
 
 interface ITagsList {
-  artist: IArtist | undefined;
+  tags?: IArtistTag[];
 }
 
-export const TagsList: FC<ITagsList> = ({ artist }) => {
+export const TagsList: FC<ITagsList> = ({ tags }) => {
   return (
     <TagContainer>
-      {artist?.tags.tag.map((data: IArtistTag, i: number) => (
+      {tags && tags.map((data: IArtistTag, i: number) => (
         <Label key={i} tag color="black">
           {data.name}
         </Label>

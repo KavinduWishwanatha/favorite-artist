@@ -25,4 +25,7 @@ TODO
 
 Desitions
 assumptions
+
 NOTES
+
+decide to add type selector to search songs and artist

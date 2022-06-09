@@ -1,25 +1,16 @@
 import type { NextPage } from 'next';
-import styled from '@emotion/styled';
-import { useGetAlbumTracks } from '../../../api/lastFmHook';
-import { Navigation } from '../../../components/navigation';
-import { Dimmer, Icon, Image, Label, Loader } from 'semantic-ui-react';
-import { getNumberUnit } from '../../../util/util';
 import moment from 'moment';
-import { useEffect, useState } from 'react';
+import { Dimmer, Icon, Image, Label, Loader } from 'semantic-ui-react';
+import styled from '@emotion/styled';
+import { Navigation } from '../../../components/navigation';
+import { getNumberUnit } from '../../../util/util';
 import { SongsList } from '../../../components/songList';
 import { DEFAULT_ALBUM_IMAGE, MOBILE_MAX_WIDTH } from '../../../constant';
-import { ITrack } from '../../../@types';
+import { useAlbum } from '../../../util/useAlbum';
 
 const BaseContainer = styled.div`
   height: 32rem;
   background-color: black;
-  background-image: url(${require('../../../assets/wallpaper.webp')});
-  background-position: top;
-  background-repeat: no-repeat;
-  background-size: cover;
-  picture {
-    pointer-events: none;
-  }
   padding: 4rem 1.5rem;
   @media (max-width: ${MOBILE_MAX_WIDTH}px) {
     height: 38rem;
@@ -117,21 +108,7 @@ interface IAlbum {
 }
 
 const Album: NextPage<IAlbum> = (props) => {
-  const [dataSet, setDataset] = useState<ITrack[]>([]);
-  const [albumImage, setAlbumImage] = useState(
-    DEFAULT_ALBUM_IMAGE
-  );
-  const { isLoading: albumLoading, data: album } = useGetAlbumTracks(String(props.mbid));
-
-  useEffect(() => {
-    if (album) {
-      setDataset(album.tracks ? Array.isArray(album.tracks.track)? album.tracks.track : [album.tracks.track]  : []);
-      setAlbumImage(
-        album.image[3]['#text'] ||
-          DEFAULT_ALBUM_IMAGE
-      );
-    }
-  }, [album]);
+  const { dataSet, albumImage, albumLoading, album } = useAlbum({ mbid: String(props.mbid) });
 
   return (
     <main>

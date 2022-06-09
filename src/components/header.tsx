@@ -39,7 +39,7 @@ const ColumnContainer = styled.div`
 `;
 
 const SummaryContainer = styled.div`
-display: block;
+  display: block;
   margin-bottom: 2rem;
   color: white;
   background: ${theme.bgBlack};
@@ -63,21 +63,22 @@ const Artist = styled.label`
 
 interface IHeader {
   loading: boolean;
-  data: IArtist | undefined;
+  noCover?: boolean;
+  data?: IArtist;
 }
 
-export const Header: FC<IHeader> = ({ loading, data }) => {
+export const Header: FC<IHeader> = ({ loading, data, noCover }) => {
   return (
     <>
       <Navigation />
-      <BaseContainer>
+      {noCover? null : <BaseContainer>
         <Container>
           {
             <ColumnContainer>
               {!loading && (
                 <>
                   <Artist>{data?.name}</Artist>
-                  <TagsList artist={data} />
+                  <TagsList tags={data?.tags.tag} />
                   <SummaryContainer
                     dangerouslySetInnerHTML={{
                       __html: limitString(String(data?.bio.summary), 500),
@@ -88,7 +89,7 @@ export const Header: FC<IHeader> = ({ loading, data }) => {
             </ColumnContainer>
           }
         </Container>
-      </BaseContainer>
+      </BaseContainer>}
     </>
   );
 };

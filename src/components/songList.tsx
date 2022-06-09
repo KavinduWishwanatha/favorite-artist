@@ -75,7 +75,6 @@ export const SongsList: FC<ISongsList> = ({
 }) => {
   const { trackList, addTrackAsFavourite } = useFavorites({ tracks, albumImage });
 
-
   if (!trackList.length) {
     return (
       <EmptyContainer>

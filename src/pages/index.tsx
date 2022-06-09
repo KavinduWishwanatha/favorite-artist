@@ -1,16 +1,13 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-loss-of-precision */
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Router from 'next/router';
 import type { NextPage } from 'next';
-import { toast } from 'react-toastify';
 import styled from '@emotion/styled';
 import { Card, Image, Icon, Loader, Radio } from 'semantic-ui-react';
-import { useGetAlbums, useGetArtistInfo } from '../api/lastFmHook';
 import { alphabeticalSort, getNumberUnit, limitString } from '../util/util';
 import { Header } from '../components/header';
-import { DEFAULT_ALBUM_IMAGE, MAX_TOTAL_PAGES, MOBILE_MAX_WIDTH } from '../constant';
+import { DEFAULT_ALBUM_IMAGE, MOBILE_MAX_WIDTH } from '../constant';
 import { IAlbum } from '../@types';
+import { useAlbums } from '../util/useAlbums';
 
 const Container = styled.div`
   display: flex;
@@ -80,31 +77,8 @@ const LoadingContainer = styled.div`
 `;
 
 const Home: NextPage = () => {
-  const [currentIndex, setIndex] = useState<number>(1);
-  const [showMore, setShowMore] = useState<boolean>(true);
   const [sort, setSort] = useState<boolean>(false);
-  const [dataSet, setDataset] = useState<IAlbum[]>([]);
-  const { isLoading: artistLoading, data: artist } = useGetArtistInfo();
-  const { isLoading: loading, data: albums, refetch: listAlbums, isRefetching: refetching } = useGetAlbums(currentIndex);
-
-  useEffect(() => {
-    const totalPages = Number((albums && albums.topalbums['@attr']['totalPages']) || 1);
-    const pageCount = totalPages > MAX_TOTAL_PAGES ? MAX_TOTAL_PAGES : totalPages;
-    if (currentIndex <= pageCount) {
-      listAlbums();
-    } else {
-      setShowMore(false);
-    }
-  }, [currentIndex]);
-
-  useEffect(() => {
-    if (albums?.error) {
-      toast.error(albums.message);
-    } else {
-      const data = albums && albums.topalbums?.album.filter((i) => i.mbid);
-      data && setDataset([...dataSet, ...data]);
-    }
-  }, [albums]);
+  const { showMore, artistLoading, artist, loading, refetching, dataSet, setIndex, currentIndex } = useAlbums();
 
   const getAlbumData = (): IAlbum[] => {
     const newData = [...dataSet];
@@ -158,7 +132,7 @@ const Home: NextPage = () => {
         )}
         {showMore && (
           <LoadMoreContainer>
-            {refetching?  <Loader active inline /> : <LoadMoreLabel onClick={() => setIndex(Number(currentIndex + 1))}>
+            {refetching ? <Loader active inline /> : <LoadMoreLabel onClick={() => setIndex(Number(currentIndex + 1))}>
               Load More
             </LoadMoreLabel>}
           </LoadMoreContainer>
