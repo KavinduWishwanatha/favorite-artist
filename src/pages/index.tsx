@@ -1,12 +1,9 @@
 import { useState } from 'react';
-import Router from 'next/router';
 import type { NextPage } from 'next';
 import styled from '@emotion/styled';
-import { Card, Image, Icon, Loader, Radio } from 'semantic-ui-react';
-import { alphabeticalSort, getNumberUnit, limitString } from '../util/util';
+import { Loader, Radio } from 'semantic-ui-react';
 import { Header } from '../components/header';
-import { DEFAULT_ALBUM_IMAGE, MOBILE_MAX_WIDTH } from '../constant';
-import { IAlbum } from '../@types';
+import { MOBILE_MAX_WIDTH } from '../constant';
 import { useAlbums } from '../util/useAlbums';
 import { AlbumCards } from '../components/albumCards';
 
