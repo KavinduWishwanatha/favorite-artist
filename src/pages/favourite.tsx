@@ -53,7 +53,7 @@ const ListContainer = styled.div`
 const Favourite: NextPage = () => {
   const { isLoading: loading, data: artist } = useGetArtistInfo();
 
-  const favouriteList = useSelector((state: RootState) => state.event.list);
+  const favouriteList = useSelector((state: RootState) => state.favourite.list);
 
   return (
     <main>

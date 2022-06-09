@@ -17,13 +17,14 @@ interface IFavouriteTrack extends ITrack {
   isFav: boolean;
 }
 
+// TODO:  add fix for dispatch and add types
 export const useFavorites = ({ tracks, albumImage }: Props) => {
-  const favouriteList = useSelector((state: RootState) => state.event.list);
+  const favouriteList = useSelector((state: RootState) => state.favourite.list);
   const [trackList, setTrackList] = useState<IFavouriteTrack[]>([]);
   const dispatch = useDispatch();
 
   const addTrackAsFavourite = (data: ITrack) => {
-    dispatch(addFavourite({ image: albumImage || DEFAULT_ALBUM_IMAGE, name: data.name, duration: data.duration })); // TODO: Fix me
+    // dispatch(addFavourite({ image: albumImage || DEFAULT_ALBUM_IMAGE, name: data.name, duration: data.duration }));
   };
 
   useEffect(() => {
@@ -33,7 +34,7 @@ export const useFavorites = ({ tracks, albumImage }: Props) => {
         isFav: favouriteList.find((e) => e.name === track.name),
       };
     });
-    setTrackList(newTracks);
+    // setTrackList(newTracks);
   }, [tracks, favouriteList, setTrackList]);
 
 
