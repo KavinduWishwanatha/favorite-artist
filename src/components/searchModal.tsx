@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import styled from '@emotion/styled';
-import { Portal, Input, Icon } from 'semantic-ui-react';
+import { Input, Icon } from 'semantic-ui-react';
+import { Portal } from 'react-portal';
 import Drawer from 'react-modern-drawer';
 import 'react-modern-drawer/dist/index.css';
 import { useEffect, useState } from 'react';
@@ -63,29 +64,29 @@ export const SearchModal: FC<Props> = ({ setOpen, open }) => {
   }, [search, getTracksListFn]);
 
   return (
-    <Portal open={true} onClose={() => setOpen(false)}>
+    <Portal>
       <PaddedDrawer open={open} onClose={() => setOpen(false)} direction="top" size={500}>
-        <RowContainer>
-          <Title>Find Songs</Title>
-          <PointedIcon name="close" size="big" onClick={() => setOpen(false)} />
-        </RowContainer>
-        <br />
-        <CustomInput
-          value={search}
-          placeholder="Search..."
-          onChange={({ target }) => setSearch(target.value)}
-          autoFocus
-        />
-        <br />
-        <br />
-        <SongsContainer>
-          <SongsList
-            duration={false}
-            tracks={tracks || []}
-            albumImage={DEFAULT_ALBUM_IMAGE}
-            customEmptyMessage="Please enter your query..."
+          <RowContainer>
+            <Title>Find Songs</Title>
+            <PointedIcon name="close" size="big" onClick={() => setOpen(false)} />
+          </RowContainer>
+          <br />
+          <CustomInput
+            value={search}
+            placeholder="Search..."
+            onChange={({ target }) => setSearch(target.value)}
+            autoFocus
           />
-        </SongsContainer>
+          <br />
+          <br />
+          <SongsContainer>
+            <SongsList
+              duration={false}
+              tracks={tracks || []}
+              albumImage={DEFAULT_ALBUM_IMAGE}
+              customEmptyMessage="Please enter your query..."
+            />
+          </SongsContainer>
       </PaddedDrawer>
     </Portal>
   );

@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import styled from '@emotion/styled';
 import { useGetArtistInfo } from '../api/lastFmHook';
 import { useSelector } from 'react-redux';
-import { RootState } from '../redux';
+import { RootState } from '../redux/reducer';
 import { SongsList } from '../components/songList';
 import { Header } from '../components/header';
 import { MOBILE_MAX_WIDTH } from '../constant';

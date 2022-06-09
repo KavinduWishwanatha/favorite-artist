@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import Router, { useRouter } from 'next/router';
-import { Menu, Button, Grid } from 'semantic-ui-react';
+import { Menu, Icon, Grid } from 'semantic-ui-react';
 import 'react-modern-drawer/dist/index.css';
 import { useState } from 'react';
 import { SearchModal } from './searchModal';
@@ -16,6 +16,10 @@ const NavGrid = styled(Grid)`
 
 const NavGridColumn = styled(Grid.Row)`
   padding: 0 !important;
+`;
+
+const SearchIcon = styled(Icon)`
+  cursor: pointer;
 `;
 
 export const Navigation = () => {
@@ -39,7 +43,7 @@ export const Navigation = () => {
             </Menu.Item>
             <Menu.Menu position="right" as="div">
               <Menu.Item>
-                <Button circular icon="search" onClick={() => setOpen(true)} />
+                <SearchIcon size="large" name="search" onClick={() => setOpen(true)} />
               </Menu.Item>
             </Menu.Menu>
           </Menu>
@@ -58,7 +62,7 @@ export const Navigation = () => {
             </Menu.Item>
             <Menu.Menu position="right">
               <Menu.Item as="div">
-                <Button circular icon="search" onClick={() => setOpen(true)} />
+                <SearchIcon circular name="search" onClick={() => setOpen(true)} />
               </Menu.Item>
             </Menu.Menu>
           </Menu>

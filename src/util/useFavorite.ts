@@ -4,7 +4,7 @@ import { addFavourite } from '../redux/actions';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 
-import type { RootState } from '../redux';
+import type { RootState } from '../redux/reducer';
 import type { ITrack } from '../@types';
 import { DEFAULT_ALBUM_IMAGE } from '../constant';
 
@@ -13,14 +13,10 @@ interface Props {
   albumImage?: string;
 }
 
-interface IFavouriteTrack extends ITrack {
-  isFav: boolean;
-}
-
-// TODO:  add fix for dispatch and add types
+// TODO:  add fix for dispatch
 export const useFavorites = ({ tracks, albumImage }: Props) => {
   const favouriteList = useSelector((state: RootState) => state.favourite.list);
-  const [trackList, setTrackList] = useState<IFavouriteTrack[]>([]);
+  const [trackList, setTrackList] = useState<ITrack[]>([]);
   const dispatch = useDispatch();
 
   const addTrackAsFavourite = (data: ITrack) => {
@@ -34,7 +30,7 @@ export const useFavorites = ({ tracks, albumImage }: Props) => {
         isFav: favouriteList.find((e) => e.name === track.name),
       };
     });
-    // setTrackList(newTracks);
+    setTrackList(newTracks);
   }, [tracks, favouriteList, setTrackList]);
 
 

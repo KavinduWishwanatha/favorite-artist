@@ -11,8 +11,6 @@ const persistConfig = {
   storage,
 };
 
-export type RootState = ReturnType<typeof reducers>;
-
 const persistedReducer = persistReducer(persistConfig, reducers);
 
 export const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(thunk)));

@@ -173,7 +173,7 @@ const Album: NextPage<IAlbum> = (props) => {
               {album && album.wiki && (
                 <PublishedDate>
                   Published :{' '}
-                  {album && moment(album.wiki.published).format('Do MMM YYYY')}
+                  {album && moment(new Date(album.wiki.published)).format('Do MMM YYYY')}
                 </PublishedDate>
               )}
             </InfoContainer>
