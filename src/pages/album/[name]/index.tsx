@@ -125,7 +125,7 @@ const Album: NextPage<IAlbum> = (props) => {
 
   useEffect(() => {
     if (album) {
-      setDataset(album.tracks ? album.tracks.track : []);
+      setDataset(album.tracks ? Array.isArray(album.tracks.track)? album.tracks.track : [album.tracks.track]  : []);
       setAlbumImage(
         album.image[3]['#text'] ||
           DEFAULT_ALBUM_IMAGE
