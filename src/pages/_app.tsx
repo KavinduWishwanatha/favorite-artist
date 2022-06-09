@@ -15,7 +15,7 @@ import '@fontsource/manrope';
 import 'nprogress/nprogress.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { BASE_URL } from '../config';
-import { ScrollTopBtn } from '../components/ScrollTop';
+import { ScrollTopBtn } from '../components/scrollTop';
 
 axios.defaults.baseURL = BASE_URL;
 axios.defaults.timeout = 30000;

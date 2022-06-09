@@ -3,7 +3,6 @@ import { withTheme } from '@emotion/react';
 import styled from '@emotion/styled';
 import { ITheme } from '../@types';
 import ScrollTop from 'react-scrolltop-button';
-import { Icon } from 'semantic-ui-react';
 
 interface IScrollTopProps {
   theme: ITheme;
@@ -15,6 +14,7 @@ const StyledScrollTop = styled(ScrollTop)`
   padding: 0px !important;
   border: 0px !important;
   background: transparent !important;
+  font-size: 3rem;
   &:hover {
     color: ${(props) => props.black} !important;
     background: transparent !important;
@@ -28,7 +28,7 @@ const ScrollTopComponent: FC<IScrollTopProps> = (props) => {
     <StyledScrollTop
       {...theme}
       breakpoint={0}
-      text={<Icon size="big" name="chevron circle up" />}
+      text="🔝"
     />
   );
 };

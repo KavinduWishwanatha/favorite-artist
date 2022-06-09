@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import styled from '@emotion/styled';
+import { withTheme } from '@emotion/react';
 import { Portal, Input, Icon } from 'semantic-ui-react';
 import Drawer from 'react-modern-drawer';
 import 'react-modern-drawer/dist/index.css';
@@ -49,7 +50,7 @@ interface Props {
   open: boolean;
 }
 
-export const SearchModal: FC<Props> = ({ theme, setOpen, open }) => {
+export const SearchModalComp: FC<Props> = ({ theme, setOpen, open }) => {
   const [search, setSearch] = useState<string>('');
   const { data: tracks, refetch: getTracksListFn } = useSearchTrackInfo(search);
 
@@ -91,3 +92,6 @@ export const SearchModal: FC<Props> = ({ theme, setOpen, open }) => {
     </Portal>
   );
 };
+
+const SearchModal = withTheme(SearchModalComp);
+export { SearchModal };

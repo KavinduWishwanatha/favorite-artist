@@ -113,7 +113,7 @@ const Home: NextPage = () => {
             {dataSet &&
               dataSet.map((data: IAlbum, i: number) => {
                 return (
-                  <Card onClick={() => Router.push(`/album/${data.name}`)} key={i}>
+                  <Card onClick={() => Router.push(`/album/${data.name}`)} key={i} as="div">
                     <Image
                       alt=""
                       src={
@@ -127,10 +127,10 @@ const Home: NextPage = () => {
                       <Card.Header>{data.name}</Card.Header>
                     </Card.Content>
                     <Card.Content extra>
-                      <a>
+                      <label>
                         <Icon name="play" />
                         {getNumberUnit(data.playcount)}
-                      </a>
+                      </label>
                     </Card.Content>
                   </Card>
                 );

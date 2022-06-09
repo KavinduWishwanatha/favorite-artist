@@ -1,15 +1,11 @@
-import { FC } from 'react';
 import styled from '@emotion/styled';
-import { withTheme } from '@emotion/react';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { Menu, Button, Grid } from 'semantic-ui-react';
 import 'react-modern-drawer/dist/index.css';
 import { useState } from 'react';
-import { ITheme } from '../@types';
 import { SearchModal } from './searchModal';
 
-const NavLink = styled.a`
+const NavLink = styled.label`
   cursor: pointer;
 `;
 
@@ -22,12 +18,8 @@ const NavGridColumn = styled(Grid.Row)`
   padding: 0 !important;
 `;
 
-interface INavigation {
-  theme: ITheme;
-}
-
-const NavigationComp: FC<INavigation> = ({ theme }) => {
-  const [open, setOpen] = useState(false);
+export const Navigation = () => {
+  const [open, setOpen] = useState<boolean>(false);
   const router = useRouter();
 
   return (
@@ -35,15 +27,14 @@ const NavigationComp: FC<INavigation> = ({ theme }) => {
       <NavGrid>
         <NavGridColumn only="computer" computer={16}>
           <Menu fixed="top" stackable inverted>
-            <Menu.Item active={router.pathname === '/'}>
-              <Link href={'/'} passHref>
-                <NavLink>Home</NavLink>
-              </Link>
+            <Menu.Item active={router.pathname === '/'} onClick={() => Router.push('/')}>
+              <NavLink>Home</NavLink>
             </Menu.Item>
-            <Menu.Item active={router.pathname === '/favourite'}>
-              <Link href={'/favourite'} passHref>
-                <NavLink>Liked Songs</NavLink>
-              </Link>
+            <Menu.Item
+              active={router.pathname === '/favourite'}
+              onClick={() => Router.push('/favourite')}
+            >
+              <NavLink>Liked Songs</NavLink>
             </Menu.Item>
             <Menu.Menu position="right">
               <Menu.Item>
@@ -54,15 +45,14 @@ const NavigationComp: FC<INavigation> = ({ theme }) => {
         </NavGridColumn>
         <NavGridColumn only="mobile tablet" mobile={16} tablet={16}>
           <Menu fixed="top" inverted>
-            <Menu.Item active={router.pathname === '/'}>
-              <Link href={'/'} passHref>
-                <NavLink>Home</NavLink>
-              </Link>
+            <Menu.Item active={router.pathname === '/'} onClick={() => Router.push('/')}>
+              <NavLink>Home</NavLink>
             </Menu.Item>
-            <Menu.Item active={router.pathname === '/favourite'}>
-              <Link href={'/favourite'} passHref>
-                <NavLink>Liked Songs</NavLink>
-              </Link>
+            <Menu.Item
+              active={router.pathname === '/favourite'}
+              onClick={() => Router.push('/favourite')}
+            >
+              <NavLink>Liked Songs</NavLink>
             </Menu.Item>
             <Menu.Menu position="right">
               <Menu.Item>
@@ -72,10 +62,7 @@ const NavigationComp: FC<INavigation> = ({ theme }) => {
           </Menu>
         </NavGridColumn>
       </NavGrid>
-      <SearchModal open={open} setOpen={setOpen} theme={theme} />
+      <SearchModal open={open} setOpen={setOpen} />
     </>
   );
 };
-
-const Navigation = withTheme(NavigationComp);
-export { Navigation };
