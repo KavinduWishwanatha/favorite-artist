@@ -1,13 +1,13 @@
 import type { NextPage } from 'next';
 import styled from '@emotion/styled';
-import { useGetArtistInfo } from '../api/lastFmHook';
 import { useSelector } from 'react-redux';
+import { useGetArtistInfo } from '../api/lastFmHook';
 import { RootState } from '../redux/reducer';
 import { SongsList } from '../components/songList';
 import { Header } from '../components/header';
 import { MOBILE_MAX_WIDTH } from '../constant';
 
-const SongContainer = styled.div`
+const SongContainer = styled.div`.
   display: flex;
   flex-direction: column;
   padding: 0.5rem 3rem;
@@ -17,6 +17,7 @@ const SongContainer = styled.div`
 `;
 
 const RowContainer = styled.div`
+  margin-top: 3rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -51,13 +52,14 @@ const ListContainer = styled.div`
 `;
 
 const Favourite: NextPage = () => {
-  const { isLoading: loading, data: artist } = useGetArtistInfo();
-
-  const favouriteList = useSelector((state: RootState) => state.list);
+  const selectedArtist = useSelector((state: RootState) => state.favourite.artist);
+  const favouriteList = useSelector((state: RootState) => state.favourite.list);
+  
+  const { isLoading: loading, data: artist } = useGetArtistInfo(selectedArtist);
 
   return (
     <main>
-      <Header loading={loading} data={artist} />
+      <Header loading={loading} data={artist} noCover />
       <SongContainer>
         <RowContainer>
           <Title>Liked Songs</Title>

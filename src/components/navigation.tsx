@@ -1,15 +1,11 @@
-import { FC } from 'react';
 import styled from '@emotion/styled';
-import { withTheme } from '@emotion/react';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { Menu, Button, Grid } from 'semantic-ui-react';
+import Router, { useRouter } from 'next/router';
+import { Menu, Icon, Grid } from 'semantic-ui-react';
 import 'react-modern-drawer/dist/index.css';
 import { useState } from 'react';
-import { ITheme } from '../@types';
 import { SearchModal } from './searchModal';
 
-const NavLink = styled.a`
+const NavLink = styled.label`
   cursor: pointer;
 `;
 
@@ -22,60 +18,58 @@ const NavGridColumn = styled(Grid.Row)`
   padding: 0 !important;
 `;
 
-interface INavigation {
-  theme: ITheme;
+const SearchIcon = styled(Icon)`
+  cursor: pointer;
+`;
+
+const CustomMenuItem = styled(Menu.Item)`
+  cursor: pointer;
+`;
+
+interface Props {
+  setOpen: (visible: boolean) => void
 }
 
-const NavigationComp: FC<INavigation> = ({ theme }) => {
-  const [open, setOpen] = useState(false);
+const MenuItems = ({ setOpen }: Props) => {  
   const router = useRouter();
+  return (
+  <>
+    <CustomMenuItem active={router.pathname === '/'} onClick={() => Router.push('/')} as="div">
+      <NavLink>Home</NavLink>
+    </CustomMenuItem>
+    <CustomMenuItem
+      active={router.pathname === '/favourite'}
+      onClick={() => Router.push('/favourite')}
+      as="div"
+    >
+      <NavLink>Liked Songs</NavLink>
+    </CustomMenuItem>
+    <Menu.Menu position="right" as="div">
+      <CustomMenuItem onClick={() => setOpen(true)}>
+        <SearchIcon size="large" name="search" />
+      </CustomMenuItem>
+    </Menu.Menu>
+  </>
+)};
+
+export const Navigation = () => {
+  const [open, setOpen] = useState(false);
 
   return (
     <>
       <NavGrid>
         <NavGridColumn only="computer" computer={16}>
           <Menu fixed="top" stackable inverted>
-            <Menu.Item active={router.pathname === '/'}>
-              <Link href={'/'} passHref>
-                <NavLink>Home</NavLink>
-              </Link>
-            </Menu.Item>
-            <Menu.Item active={router.pathname === '/favourite'}>
-              <Link href={'/favourite'} passHref>
-                <NavLink>Liked Songs</NavLink>
-              </Link>
-            </Menu.Item>
-            <Menu.Menu position="right">
-              <Menu.Item>
-                <Button circular icon="search" onClick={() => setOpen(true)} />
-              </Menu.Item>
-            </Menu.Menu>
+            <MenuItems setOpen={setOpen}/>
           </Menu>
         </NavGridColumn>
         <NavGridColumn only="mobile tablet" mobile={16} tablet={16}>
           <Menu fixed="top" inverted>
-            <Menu.Item active={router.pathname === '/'}>
-              <Link href={'/'} passHref>
-                <NavLink>Home</NavLink>
-              </Link>
-            </Menu.Item>
-            <Menu.Item active={router.pathname === '/favourite'}>
-              <Link href={'/favourite'} passHref>
-                <NavLink>Liked Songs</NavLink>
-              </Link>
-            </Menu.Item>
-            <Menu.Menu position="right">
-              <Menu.Item>
-                <Button circular icon="search" onClick={() => setOpen(true)} />
-              </Menu.Item>
-            </Menu.Menu>
+            <MenuItems setOpen={setOpen}/>
           </Menu>
         </NavGridColumn>
       </NavGrid>
-      <SearchModal open={open} setOpen={setOpen} theme={theme} />
+      <SearchModal open={open} setOpen={setOpen} />
     </>
   );
 };
-
-const Navigation = withTheme(NavigationComp);
-export { Navigation };

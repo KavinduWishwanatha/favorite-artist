@@ -1,35 +1,36 @@
 import { useEffect, useState } from 'react';
-
-import { addFavourite } from '../redux/actions';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { favouriteCreateAction } from '../redux/actions';
 import type { RootState } from '../redux/reducer';
 import type { ITrack } from '../@types';
+import { DEFAULT_ALBUM_IMAGE } from '../constant';
 
 interface Props {
   tracks: ITrack[];
   albumImage?: string;
 }
 
-interface IFavouriteTrack extends ITrack {
-  isFav: boolean;
-}
-
 export const useFavorites = ({ tracks, albumImage }: Props) => {
-  const favouriteList = useSelector((state: RootState) => state.list);
-  const [trackList, setTrackList] = useState<IFavouriteTrack[]>([]);
+  const favouriteList = useSelector((state: RootState) => state.favourite.list);
+  const [trackList, setTrackList] = useState<ITrack[]>([]);
   const dispatch = useDispatch();
 
   const addTrackAsFavourite = (data: ITrack) => {
-    dispatch(addFavourite({ image: albumImage || '', name: data.name, duration: data.duration })); // TODO: Fix me
+    const newFavourite = { image: albumImage || DEFAULT_ALBUM_IMAGE, name: data.name, duration: data.duration, artist: data.artist };
+    const exist = favouriteList.find((e: ITrack) => e.name === newFavourite.name);
+
+    if (exist) {
+      dispatch(favouriteCreateAction(favouriteList.filter((e: ITrack) => e.name !== newFavourite.name)));
+    } else {
+      dispatch(favouriteCreateAction([...favouriteList, newFavourite]));
+    }
   };
 
   useEffect(() => {
     const newTracks = tracks.map((track) => {
       return {
         ...track,
-        isFav: favouriteList.find((e) => e.name === track.name),
+        isFav: Boolean(favouriteList.find((e) => e.name === track.name)),
       };
     });
     setTrackList(newTracks);

@@ -1,18 +1,9 @@
 import { FC } from 'react';
 import styled from '@emotion/styled';
 import { Table, Feed, Icon, Image } from 'semantic-ui-react';
-
 import { secondsToTime } from '../util/util';
-
 import type { ITrack } from '../@types';
 import { useFavorites } from '../util/useFavorite';
-
-interface ISongsList {
-  tracks: ITrack[];
-  albumImage?: string;
-  duration?: boolean;
-  customEmptyMessage?: string;
-}
 
 const Container = styled.div`
   display: flex;
@@ -68,6 +59,14 @@ const PointedIcon = styled(Icon)`
   cursor: pointer;
 `;
 
+interface ISongsList {
+  tracks: ITrack[];
+  albumImage?: string;
+  duration?: boolean;
+  customEmptyMessage?: string;
+  artist?: boolean;
+}
+
 export const SongsList: FC<ISongsList> = ({
   tracks,
   albumImage,
@@ -75,7 +74,6 @@ export const SongsList: FC<ISongsList> = ({
   customEmptyMessage,
 }) => {
   const { trackList, addTrackAsFavourite } = useFavorites({ tracks, albumImage });
-
 
   if (!trackList.length) {
     return (

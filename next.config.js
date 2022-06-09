@@ -18,6 +18,7 @@ const nextConfig = {
   devIndicators: {
     autoPrerender: false,
   },
+  reactStrictMode: false,
 };
 
 module.exports = nextConfig;

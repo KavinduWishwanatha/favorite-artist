@@ -1,7 +1,9 @@
-import { AnyAction, CombinedState } from 'redux';
-import event from './modules/favourite/reducer';
+import { AnyAction, CombinedState, combineReducers } from 'redux';
+import favourite from './modules/favourite/reducer';
 
-const rootReducer = event;
+const rootReducer = combineReducers({
+  favourite,
+});
 
 export type RootState = ReturnType<typeof rootReducer>;
 const reducer = (state: RootState, action: AnyAction): CombinedState<RootState> =>

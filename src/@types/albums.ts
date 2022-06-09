@@ -8,12 +8,15 @@ type IAlbumWiki = {
 };
 
 export type ITrack = {
+  isFav?: boolean;
+  artist: string;
   name: string;
   image: string;
   duration: number;
 };
 
 export type IAlbum = {
+  mbid: string;
   name: string;
   image: IAlbumImages[];
   playcount: number;

@@ -3,22 +3,17 @@ import styled from '@emotion/styled';
 import { Navigation } from './navigation';
 import { TagsList } from './tags';
 import { MOBILE_MAX_WIDTH } from '../constant';
-import { IArtist, ITheme } from '../@types';
-import { withTheme } from '@emotion/react';
+import { IArtist } from '../@types';
+import { theme } from '../theme';
+import { limitString } from '../util/util';
 
 const BaseContainer = styled.div`
-  height: 32rem;
+  height: 25rem;
   background-color: black;
-  background-image: url(${require('../assets/wallpaper.webp')});
-  background-position: top;
-  background-repeat: no-repeat;
-  background-size: cover;
-  picture {
-    pointer-events: none;
-  }
-  padding: 4rem 1.5rem;
+  padding: 2rem 3rem;
   @media (max-width: ${MOBILE_MAX_WIDTH}px) {
-    height: 32rem;
+    height: 40rem;
+    padding: 4rem 1rem;
     .ui.inverted.menu .item {
       margin-top: 0.5rem;
     }
@@ -26,13 +21,12 @@ const BaseContainer = styled.div`
 `;
 
 const Container = styled.div`
-  margin-top: 3rem;
-  @media (max-width: ${MOBILE_MAX_WIDTH}px) {
-    margin-top: 0;
-  }
   display: flex;
   flex-direction: row;
-  height: inherit;
+  height: inherit;  
+  @media (max-width: ${MOBILE_MAX_WIDTH}px) {
+    margin-top: 2rem;
+  }
 `;
 
 const ColumnContainer = styled.div`
@@ -44,12 +38,13 @@ const ColumnContainer = styled.div`
   }
 `;
 
-const SummaryContainer = styled.div<ITheme>`
+const SummaryContainer = styled.div`
+  display: block;
   margin-bottom: 2rem;
   color: white;
-  background: ${(props) => props.bgBlack};
+  background: ${theme.bgBlack};
   padding: 10px;
-  color: ${(props) => props.stroke};
+  color: ${theme.stroke};
   line-height: 20px;
   border-radius: 5px;
   .ui.tag.label {
@@ -68,26 +63,25 @@ const Artist = styled.label`
 
 interface IHeader {
   loading: boolean;
-  data: IArtist | undefined;
-  theme: ITheme;
+  noCover?: boolean;
+  data?: IArtist;
 }
 
-export const HeaderComponent: FC<IHeader> = ({ loading, data, theme }) => {
+export const Header: FC<IHeader> = ({ loading, data, noCover }) => {
   return (
     <>
       <Navigation />
-      <BaseContainer>
+      {noCover? null : <BaseContainer>
         <Container>
           {
             <ColumnContainer>
               {!loading && (
                 <>
                   <Artist>{data?.name}</Artist>
-                  <TagsList artist={data} />
+                  <TagsList tags={data?.tags.tag} />
                   <SummaryContainer
-                    {...theme}
                     dangerouslySetInnerHTML={{
-                      __html: String(data?.bio.summary),
+                      __html: limitString(String(data?.bio.summary), 500),
                     }}
                   />
                 </>
@@ -95,9 +89,7 @@ export const HeaderComponent: FC<IHeader> = ({ loading, data, theme }) => {
             </ColumnContainer>
           }
         </Container>
-      </BaseContainer>
+      </BaseContainer>}
     </>
   );
 };
-
-export const Header = withTheme(HeaderComponent);
