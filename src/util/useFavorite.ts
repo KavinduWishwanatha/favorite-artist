@@ -13,7 +13,6 @@ interface Props {
   albumImage?: string;
 }
 
-// TODO:  add fix for dispatch
 export const useFavorites = ({ tracks, albumImage }: Props) => {
   const favouriteList = useSelector((state: RootState) => state.favourite.list);
   const [trackList, setTrackList] = useState<ITrack[]>([]);
@@ -27,7 +26,7 @@ export const useFavorites = ({ tracks, albumImage }: Props) => {
     const newTracks = tracks.map((track) => {
       return {
         ...track,
-        isFav: favouriteList.find((e) => e.name === track.name),
+        isFav: Boolean(favouriteList.find((e) => e.name === track.name)),
       };
     });
     setTrackList(newTracks);

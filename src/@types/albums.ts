@@ -8,6 +8,8 @@ type IAlbumWiki = {
 };
 
 export type ITrack = {
+  isFav?: boolean;
+  artist: string;
   name: string;
   image: string;
   duration: number;

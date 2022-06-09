@@ -81,6 +81,7 @@ export const SearchModal: FC<Props> = ({ setOpen, open }) => {
           <br />
           <SongsContainer>
             <SongsList
+              artist
               duration={false}
               tracks={tracks || []}
               albumImage={DEFAULT_ALBUM_IMAGE}
