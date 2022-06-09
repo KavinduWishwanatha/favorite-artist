@@ -112,7 +112,7 @@ const Home: NextPage = () => {
             {dataSet &&
               dataSet.map((data: IAlbum, i: number) => {
                 return (
-                  <Card onClick={() => Router.push(`/album/${data.name}`)} key={i} as="div">
+                  <Card onClick={() => Router.push(`/album/${data.name}`)} key={i}>
                     <Image
                       alt=""
                       src={
