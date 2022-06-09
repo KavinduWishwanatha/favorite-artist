@@ -1,14 +1,13 @@
 import { FC } from 'react';
 import styled from '@emotion/styled';
-import { withTheme } from '@emotion/react';
 import { Portal, Input, Icon } from 'semantic-ui-react';
 import Drawer from 'react-modern-drawer';
 import 'react-modern-drawer/dist/index.css';
 import { useEffect, useState } from 'react';
 import { useSearchTrackInfo } from '../api/lastFmHook';
 import { SongsList } from './songList';
-import { ITheme } from '../@types';
 import { DEFAULT_ALBUM_IMAGE } from '../constant';
+import { theme } from '../theme';
 
 const SongsContainer = styled.div`
   height: 21rem;
@@ -21,8 +20,8 @@ const RowContainer = styled.div`
   justify-content: space-between;
 `;
 
-const Title = styled.label<ITheme>`
-  font-family: ${(props) => props.fontPrimary};
+const Title = styled.label`
+  font-family: ${theme.fontPrimary};
   font-style: normal;
   font-weight: 800;
   font-size: 1.5rem;
@@ -45,12 +44,11 @@ const CustomInput = styled(Input)`
 `;
 
 interface Props {
-  theme: ITheme;
   setOpen: (isOpen: boolean) => void;
   open: boolean;
 }
 
-export const SearchModalComp: FC<Props> = ({ theme, setOpen, open }) => {
+export const SearchModal: FC<Props> = ({ setOpen, open }) => {
   const [search, setSearch] = useState<string>('');
   const { data: tracks, refetch: getTracksListFn } = useSearchTrackInfo(search);
 
@@ -68,7 +66,7 @@ export const SearchModalComp: FC<Props> = ({ theme, setOpen, open }) => {
     <Portal open={true} onClose={() => setOpen(false)}>
       <PaddedDrawer open={open} onClose={() => setOpen(false)} direction="top" size={500}>
         <RowContainer>
-          <Title {...theme}>Find Songs</Title>
+          <Title>Find Songs</Title>
           <PointedIcon name="close" size="big" onClick={() => setOpen(false)} />
         </RowContainer>
         <br />
@@ -92,6 +90,3 @@ export const SearchModalComp: FC<Props> = ({ theme, setOpen, open }) => {
     </Portal>
   );
 };
-
-const SearchModal = withTheme(SearchModalComp);
-export { SearchModal };

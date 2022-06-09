@@ -1,12 +1,7 @@
 import React, { FC } from 'react';
-import { withTheme } from '@emotion/react';
 import styled from '@emotion/styled';
-import { ITheme } from '../@types';
 import ScrollTop from 'react-scrolltop-button';
-
-interface IScrollTopProps {
-  theme: ITheme;
-}
+import { theme } from '../theme';
 
 const StyledScrollTop = styled(ScrollTop)`
   right: 1% !important;
@@ -16,14 +11,12 @@ const StyledScrollTop = styled(ScrollTop)`
   background: transparent !important;
   font-size: 3rem;
   &:hover {
-    color: ${(props) => props.black} !important;
+    color: ${theme.black} !important;
     background: transparent !important;
   }
 `;
 
-const ScrollTopComponent: FC<IScrollTopProps> = (props) => {
-  const { theme } = props;
-
+export const ScrollTopBtn: FC = () => {
   return (
     <StyledScrollTop
       {...theme}
@@ -32,5 +25,3 @@ const ScrollTopComponent: FC<IScrollTopProps> = (props) => {
     />
   );
 };
-
-export const ScrollTopBtn = withTheme(ScrollTopComponent);

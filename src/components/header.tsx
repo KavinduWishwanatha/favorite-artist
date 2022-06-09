@@ -3,8 +3,8 @@ import styled from '@emotion/styled';
 import { Navigation } from './navigation';
 import { TagsList } from './tags';
 import { MOBILE_MAX_WIDTH } from '../constant';
-import { IArtist, ITheme } from '../@types';
-import { withTheme } from '@emotion/react';
+import { IArtist } from '../@types';
+import { theme } from '../theme';
 
 const BaseContainer = styled.div`
   height: 32rem;
@@ -44,12 +44,12 @@ const ColumnContainer = styled.div`
   }
 `;
 
-const SummaryContainer = styled.div<ITheme>`
+const SummaryContainer = styled.div`
   margin-bottom: 2rem;
   color: white;
-  background: ${(props) => props.bgBlack};
+  background: ${theme.bgBlack};
   padding: 10px;
-  color: ${(props) => props.stroke};
+  color: ${theme.stroke};
   line-height: 20px;
   border-radius: 5px;
   .ui.tag.label {
@@ -69,10 +69,9 @@ const Artist = styled.label`
 interface IHeader {
   loading: boolean;
   data: IArtist | undefined;
-  theme: ITheme;
 }
 
-export const HeaderComponent: FC<IHeader> = ({ loading, data, theme }) => {
+export const Header: FC<IHeader> = ({ loading, data }) => {
   return (
     <>
       <Navigation />
@@ -85,7 +84,6 @@ export const HeaderComponent: FC<IHeader> = ({ loading, data, theme }) => {
                   <Artist>{data?.name}</Artist>
                   <TagsList artist={data} />
                   <SummaryContainer
-                    {...theme}
                     dangerouslySetInnerHTML={{
                       __html: String(data?.bio.summary),
                     }}
@@ -99,5 +97,3 @@ export const HeaderComponent: FC<IHeader> = ({ loading, data, theme }) => {
     </>
   );
 };
-
-export const Header = withTheme(HeaderComponent);
