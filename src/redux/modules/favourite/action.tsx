@@ -11,7 +11,9 @@ export const favouriteCreateAction = (list: ITrack[]): FavouriteAction => ({
 export const addFavourite =
   (newFavourite: ITrack): AppThunk =>
   (dispatch, getState) => {
-    const { favourite: { list } } = getState();
+    const {
+      favourite: { list },
+    } = getState();
     const exist = list.find((e: ITrack) => e.name === newFavourite.name);
 
     if (exist) {

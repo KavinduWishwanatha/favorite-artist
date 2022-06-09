@@ -24,7 +24,7 @@ export const useFavorites = ({ tracks, albumImage }: Props) => {
   const dispatch = useDispatch();
 
   const addTrackAsFavourite = (data: ITrack) => {
-    // dispatch(addFavourite({ image: albumImage || DEFAULT_ALBUM_IMAGE, name: data.name, duration: data.duration }));
+    dispatch(addFavourite({ image: albumImage || DEFAULT_ALBUM_IMAGE, name: data.name, duration: data.duration }));
   };
 
   useEffect(() => {
