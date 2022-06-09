@@ -15,3 +15,16 @@ export type IArtist = {
   name: string;
   tags: IArtistTags;
 };
+
+type IArtistImages = {
+  ['#text']: string;
+  size: string;
+};
+
+export type SearchArtist = {
+  name: string;
+  listeners: number;
+  mbid: string;
+  streamable: string;
+  image: IArtistImages[];
+};

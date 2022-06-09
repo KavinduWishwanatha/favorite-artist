@@ -16,6 +16,7 @@ export type ITrack = {
 };
 
 export type IAlbum = {
+  mbid: string;
   name: string;
   image: IAlbumImages[];
   playcount: number;

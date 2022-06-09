@@ -33,3 +33,11 @@ export const secondsToTime = (seconds: number) => {
     .padStart(2, '0');
   return m + ':' + s;
 };
+
+export function limitString(content: string, length: number): string {
+  const contentString = content.replace(/(<([^>]+)>)/gi, '')
+  if (contentString.length > length) {
+    return `${contentString.slice(0, length)}...`
+  }
+  return contentString
+}

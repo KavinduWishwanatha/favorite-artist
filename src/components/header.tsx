@@ -5,20 +5,15 @@ import { TagsList } from './tags';
 import { MOBILE_MAX_WIDTH } from '../constant';
 import { IArtist } from '../@types';
 import { theme } from '../theme';
+import { limitString } from '../util/util';
 
 const BaseContainer = styled.div`
-  height: 32rem;
+  height: 25rem;
   background-color: black;
-  background-image: url(${require('../assets/wallpaper.webp')});
-  background-position: top;
-  background-repeat: no-repeat;
-  background-size: cover;
-  picture {
-    pointer-events: none;
-  }
-  padding: 4rem 1.5rem;
+  padding: 2rem 3rem;
   @media (max-width: ${MOBILE_MAX_WIDTH}px) {
-    height: 32rem;
+    height: 40rem;
+    padding: 4rem 1rem;
     .ui.inverted.menu .item {
       margin-top: 0.5rem;
     }
@@ -26,13 +21,12 @@ const BaseContainer = styled.div`
 `;
 
 const Container = styled.div`
-  margin-top: 3rem;
-  @media (max-width: ${MOBILE_MAX_WIDTH}px) {
-    margin-top: 0;
-  }
   display: flex;
   flex-direction: row;
-  height: inherit;
+  height: inherit;  
+  @media (max-width: ${MOBILE_MAX_WIDTH}px) {
+    margin-top: 2rem;
+  }
 `;
 
 const ColumnContainer = styled.div`
@@ -45,6 +39,7 @@ const ColumnContainer = styled.div`
 `;
 
 const SummaryContainer = styled.div`
+display: block;
   margin-bottom: 2rem;
   color: white;
   background: ${theme.bgBlack};
@@ -85,7 +80,7 @@ export const Header: FC<IHeader> = ({ loading, data }) => {
                   <TagsList artist={data} />
                   <SummaryContainer
                     dangerouslySetInnerHTML={{
-                      __html: String(data?.bio.summary),
+                      __html: limitString(String(data?.bio.summary), 500),
                     }}
                   />
                 </>

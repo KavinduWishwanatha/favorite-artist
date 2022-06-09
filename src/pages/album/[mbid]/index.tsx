@@ -113,7 +113,7 @@ const ListContainer = styled.div`
 `;
 
 interface IAlbum {
-  name: string | string[] | undefined;
+  mbid: string | string[] | undefined;
 }
 
 const Album: NextPage<IAlbum> = (props) => {
@@ -121,7 +121,7 @@ const Album: NextPage<IAlbum> = (props) => {
   const [albumImage, setAlbumImage] = useState(
     DEFAULT_ALBUM_IMAGE
   );
-  const { isLoading: albumLoading, data: album } = useGetAlbumTracks(String(props.name));
+  const { isLoading: albumLoading, data: album } = useGetAlbumTracks(String(props.mbid));
 
   useEffect(() => {
     if (album) {
@@ -206,8 +206,8 @@ const Album: NextPage<IAlbum> = (props) => {
 };
 
 Album.getInitialProps = async ({ query }) => {
-  const { name } = query;
-  return { name };
+  const { mbid } = query;
+  return { mbid };
 };
 
 export default Album;

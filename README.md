@@ -20,3 +20,9 @@ See the section about [running tests](https://jestjs.io/docs/getting-started) fo
 ### Built using:
 
 * [last fm](https://www.last.fm/api) API
+
+TODO
+
+Desitions
+assumptions
+NOTES
