@@ -7,8 +7,8 @@ import { MAX_TOTAL_PAGES } from '../constant';
 import { useGetAlbums, useGetArtistInfo } from '../api/lastFmHook';
 
 export const useAlbums = () => {
-  const [currentIndex, setIndex] = useState<number>(1);
-  const [showMore, setShowMore] = useState<boolean>(true);
+  const [currentIndex, setIndex] = useState(1);
+  const [showMore, setShowMore] = useState(true);
   const [dataSet, setDataset] = useState<IAlbum[]>([]);
 
   const selectedArtist = useSelector((state: RootState) => state.favourite.artist);

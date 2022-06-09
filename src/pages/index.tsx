@@ -8,6 +8,7 @@ import { Header } from '../components/header';
 import { DEFAULT_ALBUM_IMAGE, MOBILE_MAX_WIDTH } from '../constant';
 import { IAlbum } from '../@types';
 import { useAlbums } from '../util/useAlbums';
+import { AlbumCards } from '../components/albumCards';
 
 const Container = styled.div`
   display: flex;
@@ -77,16 +78,8 @@ const LoadingContainer = styled.div`
 `;
 
 const Home: NextPage = () => {
-  const [sort, setSort] = useState<boolean>(false);
+  const [sort, setSort] = useState(false);
   const { showMore, artistLoading, artist, loading, refetching, dataSet, setIndex, currentIndex } = useAlbums();
-
-  const getAlbumData = (): IAlbum[] => {
-    const newData = [...dataSet];
-    if (sort) {
-      return newData.sort(alphabeticalSort);
-    }
-    return newData;
-  };
 
   return (
     <main>
@@ -105,30 +98,7 @@ const Home: NextPage = () => {
             <Loader active inline />
           </LoadingContainer>
         ) : (
-          <Card.Group itemsPerRow={5} stackable>
-            {dataSet &&
-              getAlbumData().map((data: IAlbum, i: number) => {
-                return (
-                  <Card key={i} onClick={() => Router.push(`/album/${data.mbid}`)}>
-                    <Image
-                      alt=""
-                      src={data.image[3]['#text'] || DEFAULT_ALBUM_IMAGE}
-                      wrapped
-                      ui={false}
-                    />
-                    <Card.Content>
-                      <Card.Header>{limitString(data.name, 40)}</Card.Header>
-                    </Card.Content>
-                    <Card.Content extra>
-                      <label>
-                        <Icon name="play" />
-                        {getNumberUnit(data.playcount)}
-                      </label>
-                    </Card.Content>
-                  </Card>
-                );
-              })}
-          </Card.Group>
+            <AlbumCards sort={sort} data={dataSet} />
         )}
         {dataSet.length > 0 && showMore && (
           <LoadMoreContainer>
