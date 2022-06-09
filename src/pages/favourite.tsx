@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import styled from '@emotion/styled';
 import { useGetArtistInfo } from '../api/lastFmHook';
 import { useSelector } from 'react-redux';
-import { RootState } from '../redux/reducer';
+import { RootState } from '../redux';
 import { SongsList } from '../components/songList';
 import { Header } from '../components/header';
 import { MOBILE_MAX_WIDTH } from '../constant';
@@ -53,7 +53,7 @@ const ListContainer = styled.div`
 const Favourite: NextPage = () => {
   const { isLoading: loading, data: artist } = useGetArtistInfo();
 
-  const favouriteList = useSelector((state: RootState) => state.list);
+  const favouriteList = useSelector((state: RootState) => state.event.list);
 
   return (
     <main>

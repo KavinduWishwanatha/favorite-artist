@@ -1,15 +1,15 @@
-import { IFavourites } from './action';
+import { ITrack } from '../../../@types';
 import { FavouriteTypes } from './types';
 
 interface SetFavourites {
   type: FavouriteTypes.MANAGE_FAVOURITE;
-  list: IFavourites[];
+  list: ITrack[];
 }
 
 export type FavouriteAction = SetFavourites;
 
 interface InitialStateI {
-  list: IFavourites[];
+  list: ITrack[];
 }
 
 const initialState: InitialStateI = {

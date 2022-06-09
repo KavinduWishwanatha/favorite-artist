@@ -27,16 +27,17 @@ export const Navigation = () => {
       <NavGrid>
         <NavGridColumn only="computer" computer={16}>
           <Menu fixed="top" stackable inverted>
-            <Menu.Item active={router.pathname === '/'} onClick={() => Router.push('/')}>
+            <Menu.Item active={router.pathname === '/'} onClick={() => Router.push('/')} as="div">
               <NavLink>Home</NavLink>
             </Menu.Item>
             <Menu.Item
               active={router.pathname === '/favourite'}
               onClick={() => Router.push('/favourite')}
+              as="div"
             >
               <NavLink>Liked Songs</NavLink>
             </Menu.Item>
-            <Menu.Menu position="right">
+            <Menu.Menu position="right" as="div">
               <Menu.Item>
                 <Button circular icon="search" onClick={() => setOpen(true)} />
               </Menu.Item>
@@ -45,17 +46,18 @@ export const Navigation = () => {
         </NavGridColumn>
         <NavGridColumn only="mobile tablet" mobile={16} tablet={16}>
           <Menu fixed="top" inverted>
-            <Menu.Item active={router.pathname === '/'} onClick={() => Router.push('/')}>
+            <Menu.Item active={router.pathname === '/'} onClick={() => Router.push('/')} as="div">
               <NavLink>Home</NavLink>
             </Menu.Item>
             <Menu.Item
               active={router.pathname === '/favourite'}
               onClick={() => Router.push('/favourite')}
+              as="div"
             >
               <NavLink>Liked Songs</NavLink>
             </Menu.Item>
             <Menu.Menu position="right">
-              <Menu.Item>
+              <Menu.Item as="div">
                 <Button circular icon="search" onClick={() => setOpen(true)} />
               </Menu.Item>
             </Menu.Menu>

@@ -94,7 +94,6 @@ const Home: NextPage = () => {
   return (
     <main>
       <Header loading={artistLoading} data={artist} />
-
       <Container>
         <RowContainer>
           <Title>Albums</Title>
