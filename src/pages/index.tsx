@@ -130,7 +130,7 @@ const Home: NextPage = () => {
               })}
           </Card.Group>
         )}
-        {showMore && (
+        {dataSet.length > 0 && showMore && (
           <LoadMoreContainer>
             {refetching ? <Loader active inline /> : <LoadMoreLabel onClick={() => setIndex(Number(currentIndex + 1))}>
               Load More

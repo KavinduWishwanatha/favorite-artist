@@ -22,6 +22,10 @@ const SearchIcon = styled(Icon)`
   cursor: pointer;
 `;
 
+const CustomMenuItem = styled(Menu.Item)`
+  cursor: pointer;
+`;
+
 interface Props {
   setOpen: (visible: boolean) => void
 }
@@ -30,20 +34,20 @@ const MenuItems = ({ setOpen }: Props) => {
   const router = useRouter();
   return (
   <>
-    <Menu.Item active={router.pathname === '/'} onClick={() => Router.push('/')} as="div">
+    <CustomMenuItem active={router.pathname === '/'} onClick={() => Router.push('/')} as="div">
       <NavLink>Home</NavLink>
-    </Menu.Item>
-    <Menu.Item
+    </CustomMenuItem>
+    <CustomMenuItem
       active={router.pathname === '/favourite'}
       onClick={() => Router.push('/favourite')}
       as="div"
     >
       <NavLink>Liked Songs</NavLink>
-    </Menu.Item>
+    </CustomMenuItem>
     <Menu.Menu position="right" as="div">
-      <Menu.Item>
-        <SearchIcon size="large" name="search" onClick={() => setOpen(true)} />
-      </Menu.Item>
+      <CustomMenuItem onClick={() => setOpen(true)}>
+        <SearchIcon size="large" name="search" />
+      </CustomMenuItem>
     </Menu.Menu>
   </>
 )};
