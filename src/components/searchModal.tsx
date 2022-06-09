@@ -38,6 +38,7 @@ const PaddedDrawer = styled(Drawer)`
 `;
 
 const CustomInput = styled(Input)`
+  width: 100%;
   font-size: 2rem !important;
   input {
     border: none !important;
@@ -54,7 +55,7 @@ export const SearchModal: FC<Props> = ({ setOpen, open }) => {
   const { data: tracks, refetch: getTracksListFn } = useSearchTrackInfo(search);
 
   useEffect(() => {
-    if(!open){
+    if (!open) {
       setSearch('');
     }
   }, [open]);
@@ -66,28 +67,28 @@ export const SearchModal: FC<Props> = ({ setOpen, open }) => {
   return (
     <Portal>
       <PaddedDrawer open={open} onClose={() => setOpen(false)} direction="top" size={500}>
-          <RowContainer>
-            <Title>Find Songs</Title>
-            <PointedIcon name="close" size="big" onClick={() => setOpen(false)} />
-          </RowContainer>
-          <br />
-          <CustomInput
-            value={search}
-            placeholder="Search..."
-            onChange={({ target }) => setSearch(target.value)}
-            autoFocus
+        <RowContainer>
+          <Title>Find Songs</Title>
+          <PointedIcon name="close" size="big" onClick={() => setOpen(false)} />
+        </RowContainer>
+        <br />
+        <CustomInput
+          value={search}
+          placeholder="Search..."
+          onChange={({ target }) => setSearch(target.value)}
+          autoFocus
+        />
+        <br />
+        <br />
+        <SongsContainer>
+          <SongsList
+            artist
+            duration={false}
+            tracks={tracks || []}
+            albumImage={DEFAULT_ALBUM_IMAGE}
+            customEmptyMessage="Please enter your query..."
           />
-          <br />
-          <br />
-          <SongsContainer>
-            <SongsList
-              artist
-              duration={false}
-              tracks={tracks || []}
-              albumImage={DEFAULT_ALBUM_IMAGE}
-              customEmptyMessage="Please enter your query..."
-            />
-          </SongsContainer>
+        </SongsContainer>
       </PaddedDrawer>
     </Portal>
   );
