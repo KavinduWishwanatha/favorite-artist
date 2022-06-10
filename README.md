@@ -45,3 +45,4 @@ See the section about [running tests](https://jestjs.io/docs/getting-started) fo
 * Add scroll to top button.
 * Add some testing using `react-testing-library`.
 * Change themes, translations - i18n.
+* Create head component to add meta data
