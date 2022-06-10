@@ -12,7 +12,7 @@ const BaseContainer = styled.div`
   background-color: black;
   padding: 2rem 3rem;
   @media (max-width: ${MOBILE_MAX_WIDTH}px) {
-    height: 40rem;
+    height: 42rem;
     padding: 4rem 1rem;
     .ui.inverted.menu .item {
       margin-top: 0.5rem;
@@ -59,6 +59,10 @@ const Artist = styled.label`
   font-size: 4rem;
   line-height: 80px;
   color: white;
+  @media (max-width: ${MOBILE_MAX_WIDTH}px) {
+    font-size: 3rem;
+    line-height: 60px;
+  }
 `;
 
 interface IHeader {
