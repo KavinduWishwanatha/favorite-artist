@@ -6,6 +6,7 @@ import { RootState } from '../redux/reducer';
 import { SongsList } from '../components/songList';
 import { Header } from '../components/header';
 import { MOBILE_MAX_WIDTH } from '../constant';
+import Head from 'next/head';
 
 const SongContainer = styled.div`.
   display: flex;
@@ -54,25 +55,28 @@ const ListContainer = styled.div`
 const Favourite: NextPage = () => {
   const selectedArtist = useSelector((state: RootState) => state.favourite.artist);
   const favouriteList = useSelector((state: RootState) => state.favourite.list);
-  
+
   const { isLoading: loading, data: artist } = useGetArtistInfo(selectedArtist);
 
   return (
-    <main>
-      <Header loading={loading} data={artist} noCover />
-      <SongContainer>
-        <RowContainer>
-          <Title>Liked Songs</Title>
-        </RowContainer>
-        <RowContent>
-          <EmptyFlex />
-          <ListContainer>
-            <SongsList tracks={favouriteList} />
-          </ListContainer>
-          <EmptyFlex />
-        </RowContent>
-      </SongContainer>
-    </main>
+    <>
+      <Head><title>Favorite Artist</title></Head>
+      <main>
+        <Header loading={loading} data={artist} noCover />
+        <SongContainer>
+          <RowContainer>
+            <Title>Liked Songs</Title>
+          </RowContainer>
+          <RowContent>
+            <EmptyFlex />
+            <ListContainer>
+              <SongsList tracks={favouriteList} />
+            </ListContainer>
+            <EmptyFlex />
+          </RowContent>
+        </SongContainer>
+      </main>
+    </>
   );
 };
 

@@ -6,6 +6,7 @@ import { Header } from '../components/header';
 import { MOBILE_MAX_WIDTH } from '../constant';
 import { useAlbums } from '../util/useAlbums';
 import { AlbumCards } from '../components/albumCards';
+import Head from 'next/head';
 
 const Container = styled.div`
   display: flex;
@@ -79,33 +80,36 @@ const Home: NextPage = () => {
   const { showMore, artistLoading, artist, loading, refetching, dataSet, setIndex, currentIndex } = useAlbums();
 
   return (
-    <main>
-      <Header loading={artistLoading} data={artist} />
-      <Container>
-        <RowContainer>
-          <Title>Albums</Title>
-          <FilterContainer>
-            <FilterText>Sort by name</FilterText>
-            <Radio slider onChange={() => setSort(!sort)} />
-          </FilterContainer>
-        </RowContainer>
+    <>
+      <Head><title>{artist?.name || 'Favorite Artist'}</title></Head>
+      <main>
+        <Header loading={artistLoading} data={artist} />
+        <Container>
+          <RowContainer>
+            <Title>Albums</Title>
+            <FilterContainer>
+              <FilterText>Sort by name</FilterText>
+              <Radio slider onChange={() => setSort(!sort)} />
+            </FilterContainer>
+          </RowContainer>
 
-        {loading ? (
-          <LoadingContainer>
-            <Loader active inline />
-          </LoadingContainer>
-        ) : (
+          {loading ? (
+            <LoadingContainer>
+              <Loader active inline />
+            </LoadingContainer>
+          ) : (
             <AlbumCards sort={sort} data={dataSet} />
-        )}
-        {dataSet.length > 0 && showMore && (
-          <LoadMoreContainer>
-            {refetching ? <Loader active inline /> : <LoadMoreLabel onClick={() => setIndex(Number(currentIndex + 1))}>
-              Load More
-            </LoadMoreLabel>}
-          </LoadMoreContainer>
-        )}
-      </Container>
-    </main>
+          )}
+          {dataSet.length > 0 && showMore && (
+            <LoadMoreContainer>
+              {refetching ? <Loader active inline /> : <LoadMoreLabel onClick={() => setIndex(Number(currentIndex + 1))}>
+                Load More
+              </LoadMoreLabel>}
+            </LoadMoreContainer>
+          )}
+        </Container>
+      </main>
+    </>
   );
 };
 

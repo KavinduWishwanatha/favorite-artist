@@ -7,6 +7,7 @@ import { getNumberUnit } from '../../../util/util';
 import { SongsList } from '../../../components/songList';
 import { DEFAULT_ALBUM_IMAGE, MOBILE_MAX_WIDTH } from '../../../constant';
 import { useAlbum } from '../../../util/useAlbum';
+import Head from 'next/head';
 
 const BaseContainer = styled.div`
   height: 32rem;
@@ -111,74 +112,77 @@ const Album: NextPage<IAlbum> = (props) => {
   const { dataSet, albumImage, albumLoading, album } = useAlbum({ mbid: String(props.mbid) });
 
   return (
-    <main>
-      {albumLoading && (
-        <Dimmer active>
-          <Loader />
-        </Dimmer>
-      )}
-      <BaseContainer>
-        <Navigation />
-        <HeaderContainer>
-          <ResponsiveContainer>
-            <Image
-              rounded
-              alt="album-image"
-              src={
-                (album && album.image[3]['#text']) ||
-                DEFAULT_ALBUM_IMAGE
-              }
-              size="medium"
-            />
-            <InfoContainer>
-              <div>
-                <Label>
-                  <Icon name="user circle" />
-
-                  <Label.Detail>
-                    {album && getNumberUnit(album.listeners)}
-                  </Label.Detail>
-                </Label>
-                <Label>
-                  <Icon name="play circle" />{' '}
-                  <Label.Detail>
-                    {album && getNumberUnit(album.playcount)}
-                  </Label.Detail>
-                </Label>
-              </div>
-              <AlbumName>{album && album.name} </AlbumName>
-              {album && album.wiki && (
-                <PublishedDate>
-                  Published :{' '}
-                  {album && moment(new Date(album.wiki.published)).format('Do MMM YYYY')}
-                </PublishedDate>
-              )}
-            </InfoContainer>
-          </ResponsiveContainer>
-        </HeaderContainer>
-      </BaseContainer>
-
-      <ResultContainer>
-        {album && album.wiki && (
-          <div
-            dangerouslySetInnerHTML={{
-              __html: album.wiki.summary,
-            }}
-          />
+    <>
+      <Head><title>{album?.name || 'Favorite Artist'}</title></Head>
+      <main>
+        {albumLoading && (
+          <Dimmer active>
+            <Loader />
+          </Dimmer>
         )}
+        <BaseContainer>
+          <Navigation />
+          <HeaderContainer>
+            <ResponsiveContainer>
+              <Image
+                rounded
+                alt="album-image"
+                src={
+                  (album && album.image[3]['#text']) ||
+                  DEFAULT_ALBUM_IMAGE
+                }
+                size="medium"
+              />
+              <InfoContainer>
+                <div>
+                  <Label>
+                    <Icon name="user circle" />
 
-        <TitleContainer>
-          <Title>Tracks</Title>
-        </TitleContainer>
-        <ResponsiveContainer>
-          <EmptyFlex />
-          <ListContainer>
-            <SongsList tracks={dataSet} albumImage={albumImage} />
-          </ListContainer>
-          <EmptyFlex />
-        </ResponsiveContainer>
-      </ResultContainer>
-    </main>
+                    <Label.Detail>
+                      {album && getNumberUnit(album.listeners)}
+                    </Label.Detail>
+                  </Label>
+                  <Label>
+                    <Icon name="play circle" />{' '}
+                    <Label.Detail>
+                      {album && getNumberUnit(album.playcount)}
+                    </Label.Detail>
+                  </Label>
+                </div>
+                <AlbumName>{album && album.name} </AlbumName>
+                {album && album.wiki && (
+                  <PublishedDate>
+                    Published :{' '}
+                    {album && moment(new Date(album.wiki.published)).format('Do MMM YYYY')}
+                  </PublishedDate>
+                )}
+              </InfoContainer>
+            </ResponsiveContainer>
+          </HeaderContainer>
+        </BaseContainer>
+
+        <ResultContainer>
+          {album && album.wiki && (
+            <div
+              dangerouslySetInnerHTML={{
+                __html: album.wiki.summary,
+              }}
+            />
+          )}
+
+          <TitleContainer>
+            <Title>Tracks</Title>
+          </TitleContainer>
+          <ResponsiveContainer>
+            <EmptyFlex />
+            <ListContainer>
+              <SongsList tracks={dataSet} albumImage={albumImage} />
+            </ListContainer>
+            <EmptyFlex />
+          </ResponsiveContainer>
+        </ResultContainer>
+      </main>
+    </>
   );
 };
 
