@@ -8,6 +8,7 @@ import { useSearchArtist, useSearchTrack } from '../api/lastFmHook';
 import { SongsList } from './songList';
 import { DEFAULT_ALBUM_IMAGE } from '../constant';
 import { ArtistList } from './artistList';
+import useDebounce from '../util/useDebounce';
 
 const SongsContainer = styled.div`
   margin-top: 4rem;
@@ -63,6 +64,7 @@ interface Props {
 export const SearchModal: FC<Props> = ({ setOpen, open }) => {
   const [isArtist, setType] = useState(false);
   const [search, setSearch] = useState('');
+  const debouncedValue = useDebounce<string>(search, 500)
   const { data: tracks, refetch: getTracksListFn } = useSearchTrack(search);
   const { data: artists, refetch: getArtistListFn } = useSearchArtist(search);
 
@@ -74,8 +76,9 @@ export const SearchModal: FC<Props> = ({ setOpen, open }) => {
   }, [open]);
 
   useEffect(() => {
-    setTimeout(() => [getArtistListFn(), getTracksListFn()], 500);
-  }, [search]);
+    getArtistListFn();
+    getTracksListFn();
+  }, [debouncedValue]);
 
   return (
     <Portal>
