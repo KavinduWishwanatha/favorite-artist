@@ -1,6 +1,6 @@
 import { useEffect, useState, FC } from 'react';
 import styled from '@emotion/styled';
-import { Input, Icon, Label } from 'semantic-ui-react';
+import { Input, Icon, Label, Loader } from 'semantic-ui-react';
 import { Portal } from 'react-portal';
 import Drawer from 'react-modern-drawer';
 import 'react-modern-drawer/dist/index.css';
@@ -15,6 +15,8 @@ const SongsContainer = styled.div`
   flex: 2;
   height: 21rem;
   overflow: auto;
+  display:flex;
+  justify-content: center;
 `;
 
 const RowContainer = styled.div`
@@ -65,8 +67,8 @@ export const SearchModal: FC<Props> = ({ setOpen, open }) => {
   const [isArtist, setType] = useState(false);
   const [search, setSearch] = useState('');
   const debouncedValue = useDebounce<string>(search, 500)
-  const { data: tracks, refetch: getTracksListFn } = useSearchTrack(search);
-  const { data: artists, refetch: getArtistListFn } = useSearchArtist(search);
+  const { data: tracks, refetch: getTracksListFn, isFetching: loadTrack } = useSearchTrack(search);
+  const { data: artists, refetch: getArtistListFn, isFetching: loadArtist } = useSearchArtist(search);
 
   useEffect(() => {
     if (!open) {
@@ -99,13 +101,16 @@ export const SearchModal: FC<Props> = ({ setOpen, open }) => {
           <PointedIcon name="close" size="big" onClick={() => setOpen(false)} />
         </RowContainer>
         <SongsContainer>
-          {isArtist ? <ArtistList artists={artists || []} setOpen={setOpen} customEmptyMessage="Please enter your query..." /> : <SongsList
-            artist
-            duration={false}
-            tracks={tracks || []}
-            albumImage={DEFAULT_ALBUM_IMAGE}
-            customEmptyMessage="Please enter your query..."
-          />}
+          {loadTrack || loadArtist ? <Loader active inline /> : isArtist ?
+            <ArtistList artists={artists || []} setOpen={setOpen} customEmptyMessage="Please enter your query..." />
+            :
+            <SongsList
+              artist
+              duration={false}
+              tracks={tracks || []}
+              albumImage={DEFAULT_ALBUM_IMAGE}
+              customEmptyMessage="Please enter your query..."
+            />}
         </SongsContainer>
       </PaddedDrawer>
     </Portal>
