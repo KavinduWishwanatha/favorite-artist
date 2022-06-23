@@ -1,8 +1,5 @@
-/* eslint-disable @typescript-eslint/no-this-alias */
-
 import { IAlbum } from '../@types';
 
-/* eslint-disable prefer-rest-params */
 export const alphabeticalSort = (a: IAlbum, b: IAlbum) => a.name.localeCompare(b.name);
 
 const BILLION = 1.0e9;
