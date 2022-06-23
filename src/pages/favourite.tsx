@@ -6,7 +6,7 @@ import { RootState } from '../redux/reducer';
 import { SongsList } from '../components/songList';
 import { Header } from '../components/header';
 import { MOBILE_MAX_WIDTH } from '../constant';
-import Head from 'next/head';
+import { MetaHead } from '../components/metaHead';
 
 const SongContainer = styled.div`.
   display: flex;
@@ -60,7 +60,7 @@ const Favourite: NextPage = () => {
 
   return (
     <>
-      <Head><title>Favorite Artist</title></Head>
+      <MetaHead title='Favorite Artist'/>
       <main>
         <Header loading={loading} data={artist} noCover />
         <SongContainer>

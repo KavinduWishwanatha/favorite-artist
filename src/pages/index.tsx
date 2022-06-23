@@ -6,7 +6,7 @@ import { Header } from '../components/header';
 import { MOBILE_MAX_WIDTH } from '../constant';
 import { useAlbums } from '../util/useAlbums';
 import { AlbumCards } from '../components/albumCards';
-import Head from 'next/head';
+import { MetaHead } from '../components/metaHead';
 
 const Container = styled.div`
   display: flex;
@@ -81,7 +81,7 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <Head><title>{artist?.name || 'Favorite Artist'}</title></Head>
+      <MetaHead title={artist?.name || 'Favorite Artist'}/>
       <main>
         <Header loading={artistLoading} data={artist} />
         <Container>

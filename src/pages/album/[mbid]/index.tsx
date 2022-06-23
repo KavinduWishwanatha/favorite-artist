@@ -7,7 +7,7 @@ import { getNumberUnit } from '../../../util/util';
 import { SongsList } from '../../../components/songList';
 import { DEFAULT_ALBUM_IMAGE, MOBILE_MAX_WIDTH } from '../../../constant';
 import { useAlbum } from '../../../util/useAlbum';
-import Head from 'next/head';
+import { MetaHead } from '../../../components/metaHead';
 
 const BaseContainer = styled.div`
   height: 32rem;
@@ -113,7 +113,7 @@ const Album: NextPage<IAlbum> = (props) => {
 
   return (
     <>
-      <Head><title>{album?.name || 'Favorite Artist'}</title></Head>
+      <MetaHead title={album?.name || 'Favorite Artist'}/>
       <main>
         {albumLoading && (
           <Dimmer active>
