@@ -73,7 +73,7 @@ describe('alphabeticalSort', () => {
       ],
     ],
   ])('when unsorted array is %s, return as %s', (value: any[], result: any[]) =>
-    expect(value.sort(alphabeticalSort)).toEqual(result)
+    expect(value.sort((a, b) => alphabeticalSort(a.name, b.name))).toEqual(result)
   );
 });
 

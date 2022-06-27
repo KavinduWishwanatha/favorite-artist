@@ -1,6 +1,4 @@
-import { IAlbum } from '../@types';
-
-export const alphabeticalSort = (a: IAlbum, b: IAlbum) => a.name.localeCompare(b.name);
+export const alphabeticalSort = (a: string, b: string) => a.localeCompare(b);
 
 const BILLION = 1.0e9;
 const MILLION = 1.0e6;

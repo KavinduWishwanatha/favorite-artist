@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useQuery } from 'react-query';
 import { LAST_FM_API_KEY } from '../config';
-import { IAlbumResult, IAlbumTracks, IArtist, ITrack, SearchArtist } from '../@types';
+import { IAlbumResult, IAlbumTracks, IArtist, ITrack, ISearchArtist } from '../@types';
 
 const defaultApiParams = {
   ['api_key']: LAST_FM_API_KEY,
@@ -63,7 +63,7 @@ export const useSearchTrack = (track: string) => {
 };
 
 export const useSearchArtist = (artist: string) => {
-  return useQuery<SearchArtist[]>('search-artist', async () => {
+  return useQuery<ISearchArtist[]>('search-artist', async () => {
     const response = await axios.get(`/`, {
       params: {
         ...defaultApiParams,

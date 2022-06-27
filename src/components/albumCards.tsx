@@ -23,7 +23,7 @@ export const AlbumCards: FC<Props> = ({ sort, data }) => {
     const getAlbumData = (): IAlbum[] => {
         const newData = [...data];
         if (sort) {
-            return newData.sort(alphabeticalSort);
+            return newData.sort((a, b) => alphabeticalSort(a.name, b.name));
         }
         return newData;
     };

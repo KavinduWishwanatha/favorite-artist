@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from '@emotion/styled';
 import { Table, Image } from 'semantic-ui-react';
-import type { SearchArtist } from '../@types';
+import type { ISearchArtist } from '../@types';
 import { DEFAULT_ARTIST_IMAGE } from '../constant';
 import { favouriteSetArtistAction } from '../redux/actions';
 
@@ -39,7 +39,7 @@ const CustomTableRow = styled(Table.Row)`
 `;
 
 interface IArtistList {
-  artists: SearchArtist[];
+  artists: ISearchArtist[];
   setOpen: (visible: boolean) => void;
   customEmptyMessage: string;
 }
