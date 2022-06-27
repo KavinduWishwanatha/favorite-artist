@@ -43,7 +43,7 @@ export const AlbumCards: FC<Props> = ({ sort, data }) => {
                 return (
                     <Card key={i} onClick={() => Router.push(`/album/${data.mbid}`)}>
                         <Image
-                            alt=""
+                            alt="album-image"
                             src={data.image[3]['#text'] || DEFAULT_ALBUM_IMAGE}
                             wrapped
                             ui={false}
