@@ -20,6 +20,7 @@ const NavGridColumn = styled(Grid.Row)`
 
 const SearchIcon = styled(Icon)`
   cursor: pointer;
+  margin: 0!important;
 `;
 
 const CustomMenuItem = styled(Menu.Item)`
