@@ -21,7 +21,7 @@ type IArtistImages = {
   size: string;
 };
 
-export type SearchArtist = {
+export type ISearchArtist = {
   name: string;
   listeners: number;
   mbid: string;

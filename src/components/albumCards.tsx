@@ -23,7 +23,7 @@ export const AlbumCards: FC<Props> = ({ sort, data }) => {
     const getAlbumData = (): IAlbum[] => {
         const newData = [...data];
         if (sort) {
-            return newData.sort(alphabeticalSort);
+            return newData.sort((a, b) => alphabeticalSort(a.name, b.name));
         }
         return newData;
     };
@@ -43,7 +43,7 @@ export const AlbumCards: FC<Props> = ({ sort, data }) => {
                 return (
                     <Card key={i} onClick={() => Router.push(`/album/${data.mbid}`)}>
                         <Image
-                            alt=""
+                            alt="album-image"
                             src={data.image[3]['#text'] || DEFAULT_ALBUM_IMAGE}
                             wrapped
                             ui={false}

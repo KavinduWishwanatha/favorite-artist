@@ -1,8 +1,9 @@
 import { FC } from 'react';
+import Router, { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import styled from '@emotion/styled';
 import { Table, Image } from 'semantic-ui-react';
-import type { SearchArtist } from '../@types';
+import type { ISearchArtist } from '../@types';
 import { DEFAULT_ARTIST_IMAGE } from '../constant';
 import { favouriteSetArtistAction } from '../redux/actions';
 
@@ -39,7 +40,7 @@ const CustomTableRow = styled(Table.Row)`
 `;
 
 interface IArtistList {
-  artists: SearchArtist[];
+  artists: ISearchArtist[];
   setOpen: (visible: boolean) => void;
   customEmptyMessage: string;
 }
@@ -49,6 +50,7 @@ export const ArtistList: FC<IArtistList> = ({
   setOpen,
   customEmptyMessage
 }) => {
+  const { route } = useRouter();
   const dispatch = useDispatch();
 
   if (artists && !artists.length) {
@@ -64,7 +66,11 @@ export const ArtistList: FC<IArtistList> = ({
       <Table.Body>
         {artists.map((data, i) => {
           return (
-            <CustomTableRow key={i} onClick={() => [dispatch(favouriteSetArtistAction(data.name)), setOpen(false)]}>
+            <CustomTableRow key={i} onClick={() => [
+              dispatch(favouriteSetArtistAction(data.name)),
+              (route === '/') ? setOpen(false) : Router.push('/')
+            ]
+            }>
               <Table.Cell>
                 <Container>
                   <LeftContainer>
